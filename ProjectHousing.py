@@ -37,7 +37,8 @@ print(table)
 table.to_excel("C:/Users/KMarg/Documents/pivot_table.xlsx")
 
 #Now we will create some metrics to calculate the competitiveness of the area.
-#The basic idea is that 
+#First of all, we will see will check the concertration if ad types per neighborhood.
+#The bigger the presence of star, premium and up, the harder for a simple listing to get high
 
 Count_Of_adtype_per_Region = data.groupby('geography_name')['ad_type'].value_counts()/data.groupby('geography_name')['ad_type'].count()*100
 
@@ -55,6 +56,10 @@ plt.ylabel('Percentage of Ad Types')
 
 # show the plot
 plt.show()
+
+#Based on this gentrification area and northern sub seem like more competitive.
+#On the other hand the bigger concertration of simples listings in beesy neighborhood makes
+#the environment more competitive for the simple.
 
 # create a pie chart of the counts
 fig, axs = plt.subplots(1, len(Count_Of_adtype_per_Region.index.levels[0]), figsize=(15, 6), squeeze=False)
@@ -74,9 +79,9 @@ fig.tight_layout()
 # show the plot
 plt.show()
 
+#Now based on the fact that ranking is not enough, we will check the average ranking per type per region.
 
-
-#Now we want to research the intra-Category rating
+#intra-Category rating
 Average_Ranking_per_Ad_type = data.groupby(['geography_name', 'ad_type'])['ranking_score'].agg(['mean', 'median'])
 
 
@@ -88,5 +93,8 @@ ax.set_xlabel('(Geography Name, Ad Type)')
 ax.set_ylabel('Ranking Score')
 ax.legend(['Mean', 'Median'])
 plt.show()
+
+#Here we see another story. The mean rating in beesy neighborhood is very close for each ad type
+#This means that really rating cannot help a simple add in such a case. In any case, more research is needed.
 
 
